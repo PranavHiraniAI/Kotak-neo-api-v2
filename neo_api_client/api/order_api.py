@@ -145,7 +145,7 @@ class OrderAPI(object):
         except ApiException as ex:
             return {"error": ex}
 
-    def bracket_order_cancelling(self, order_id, isVerify, amo=None):
+    def bracket_order_cancelling(self, order_id, isVerify, sym_order_id, amo=None):
         if isVerify:
             order_book_resp = neo_api_client.OrderReportAPI(self.api_client).ordered_books()
             if "data" in order_book_resp:
@@ -162,7 +162,7 @@ class OrderAPI(object):
             "Auth": self.api_client.configuration.edit_token,
             "Content-Type": "application/x-www-form-urlencoded"
         }
-        body_params = {"on": order_id, "am": amo}
+        body_params = {"on": order_id, "am": amo, "symOrdId": sym_order_id}
 
         query_params = {"sId": self.api_client.configuration.serverId}
         URL = self.api_client.configuration.get_url_details("cancel_bracket_order")
