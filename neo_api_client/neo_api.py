@@ -229,7 +229,7 @@ class NeoAPI:
         else:
             return {"Error Message": "Complete the 2fa process before accessing this application"}
 
-    def cancel_bracket_order(self, order_id, amo="NO", isVerify=False):
+    def cancel_bracket_order(self, order_id, sym_order_id=None, amo="NO", isVerify=False):
         """
             Cancels a bracket order with the given `order_id` using the NEO API.
 
@@ -251,7 +251,7 @@ class NeoAPI:
             try:
                 neo_api_client.req_data_validation.cancel_order_validation(order_id)
                 cancel_order = neo_api_client.OrderAPI(self.api_client).bracket_order_cancelling(order_id=order_id,
-                                                                                         isVerify=isVerify, amo=amo)
+                                                                                         isVerify=isVerify, sym_order_id=sym_order_id, amo=amo)
                 return cancel_order
             except Exception as e:
                 return {'Error': e}
